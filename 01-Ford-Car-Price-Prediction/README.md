@@ -26,7 +26,13 @@ The original notebook uses a Kaggle input path. If running locally, download the
 
 ## Evaluation
 
-The model has been trained and tested. Add the measured MAE, RMSE, and R² values from the notebook here; values are intentionally not guessed.
+The notebook currently reports an R² score of **0.8397** for the one-hot-encoded feature set and **0.7310** for the label-encoded feature set (test split: 33%, random_state=42). These are the values recorded in the saved notebook outputs; rerun the notebook after addressing the preprocessing notes below to confirm the final metrics.
+
+### Preprocessing notes
+
+- The current notebook scales features before the train/test split, which can cause data leakage. Split first, then fit preprocessing only on the training data (ideally using a scikit-learn Pipeline/ColumnTransformer).
+- The one-hot-encoded data is converted to integers before scaling, which truncates decimal values such as `mpg` and `engineSize`. Avoid converting the entire encoded DataFrame to `int`.
+- The notebook experiments with both one-hot encoding and label encoding. For nominal categories such as car model, fuel type, and transmission, one-hot encoding is generally a more appropriate baseline for Linear Regression.
 
 ## Run the Notebook
 
